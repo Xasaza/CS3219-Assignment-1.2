@@ -16,17 +16,20 @@ public class InputHandler {
 	 * 							the tokenised input titles
 	 * @param ignoreWords		Reference to an ArrayList of input words to ignore
 	 */
-	public static void readAndStoreInput(	ArrayList<ArrayList<String>> tokenizedTitles, 
-											ArrayList<String> ignoreWords) {
-		
+	public static ArrayList<ArrayList<String>> readAndStoreTitles() {
 		Scanner scanner = new Scanner(System.in);
-		readTitlesInput(tokenizedTitles, scanner);
-		readIgnoreWordsInput(ignoreWords, scanner);
+		ArrayList<ArrayList<String>> tokenizedTitles = readTitlesInput(scanner);
+		return tokenizedTitles;
 	}
 	
-	private static void readTitlesInput(ArrayList<ArrayList<String>> tokenizedTitles,
-										Scanner scanner) {
-		
+	public static ArrayList<String> readAndStoreIgnoreWords() {
+		Scanner scanner = new Scanner(System.in);
+		ArrayList<String> ignoreWords = readIgnoreWordsInput(scanner);
+		return ignoreWords;
+	}
+	
+	private static ArrayList<ArrayList<String>> readTitlesInput(Scanner scanner) {
+		ArrayList<ArrayList<String>> tokenizedTitles = new ArrayList<ArrayList<String>>();
 		// Prompt for number of titles
 		System.out.println(MSG_INPUT_TITLE_NUMBER);
 		
@@ -44,16 +47,19 @@ public class InputHandler {
 			tokenizedTitles.add(readLineAndParse(scanner));
 			counter++;
 		}
+		
+		return tokenizedTitles;
 	}
 	
-	private static void readIgnoreWordsInput(ArrayList<String> ignoreWords, Scanner scanner) {
-		
+	private static ArrayList<String> readIgnoreWordsInput(Scanner scanner) {
+		ArrayList<String> ignoreWords = new ArrayList<String>();
 		// Prompt for words to ignore
 		System.out.println(MSG_INPUT_IGNORE_WORDS);
 		
 		// Read, parse and update
 		ArrayList<String> processedIgnoreWords = (readLineAndParse(scanner));
 		ignoreWords.addAll(processedIgnoreWords);
+		return ignoreWords;
 	}
 	
 	// Reads in a line through the input scanner, parse the words with regex "\\s+",
@@ -63,8 +69,5 @@ public class InputHandler {
 		String[] parsedLine = line.split("\\s+"); 
 		return new ArrayList<String>(Arrays.asList(parsedLine));
 	}
-	
-	
-	
 	
 }

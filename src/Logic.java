@@ -9,12 +9,10 @@ public class Logic {
 	 * 
 	 * @param tokenizedTitles	
 	 * @param ignoreWords
-	 * @param outputTitles
 	 */
-	public static void executeKWIC(	ArrayList<ArrayList<String>> tokenizedTitles,
-									ArrayList<String> ignoreWords,
-									ArrayList<String> outputTitles) {
-		
+	public static ArrayList<String> executeKWIC(	ArrayList<ArrayList<String>> tokenizedTitles,
+									ArrayList<String> ignoreWords) {
+		ArrayList<String> outputTitles = new ArrayList<String>();
 		// Get list of shifted titles
 		ArrayList<ArrayList<String>> shiftedTitles = CircularShift.circularShift(tokenizedTitles);
 		
@@ -25,5 +23,7 @@ public class Logic {
 		
 		// Set output
 		outputTitles.addAll(processedTitles);
+		
+		return outputTitles;
 	}
 }
